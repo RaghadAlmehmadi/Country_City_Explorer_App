@@ -1,11 +1,13 @@
-package com.example.countrycityexplorer
+package com.example.countrycityexplorer.presentation.UI
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,33 +15,70 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
+import com.example.countrycityexplorer.presentation.vm.CountryVM.CountryViewModel
 import com.example.countrycityexplorer.ui.theme.blue
+import androidx.compose.runtime.*
+import com.example.countrycityexplorer.util.Result
+import com.example.countrycityexplorer.data.model.Country
 
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CountryListScreen(navController: NavController) {
+fun CountryListScreen(navController: NavController, viewModel: CountryViewModel) {
+    val countryState by viewModel.countryState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchCountries()
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.height(48.dp), // Slightly smaller height
+                windowInsets = WindowInsets(0, 0, 0, 0),
+                title = { Text("Countries") },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = blue)
+            )
+        }
+    ) { paddingValues ->
         Column(
-            verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxSize()
+                .padding(paddingValues)
                 .padding(16.dp),
+            verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Country List",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black, // Text in White
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            LazyColumn {
-                items(countryList) { country ->
-                    CountryItem(country) {
-                        navController.navigate("state_list/${country.iso2}") // Pass country ISO code
+            when (val countryState = viewModel.countryState.collectAsState().value) {
+                is Result.Loading -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                }
+                is Result.Success -> {
+                    LazyColumn {
+                        items(countryState.data) { country ->
+                            CountryItem(country) {
+                                Log.d("NAVIGATION", "Navigating with country: ${country.country}") // ✅ Log name
+                                navController.navigate("state_list/${country.country}")
+                            }
+                        }
+                    }
+                }
+                is Result.Error -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text("Error: ${countryState.message}", color = Color.Red)
                     }
                 }
             }
+
         }
     }
+}
+
 
 
 @Composable
@@ -56,7 +95,7 @@ fun CountryItem(country: Country, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "${country.name} (${country.iso2})",
+                text = "${country.country} (${country.iso2})",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White // Set Text Color to White
@@ -65,20 +104,5 @@ fun CountryItem(country: Country, onClick: () -> Unit) {
     }
 }
 
-// Country Data Model
-data class Country(
-    val id: Int,
-    val name: String,
-    val iso2: String
-)
 
-// Sample Country List
-val countryList = listOf(
-    Country(1, "United States", "US"),
-    Country(2, "Canada", "CA"),
-    Country(3, "United Kingdom", "GB"),
-    Country(4, "Australia", "AU"),
-    Country(5, "Germany", "DE"),
-    Country(6, "France", "FR"),
-    Country(7, "Italy", "IT"),
-)
+
