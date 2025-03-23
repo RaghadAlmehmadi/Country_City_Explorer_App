@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.countrycityexplorer.data.model.City
-import com.example.countrycityexplorer.presentation.vm.CityVM.CityViewModel
+import com.example.countrycityexplorer.domain.model.City
+import com.example.countrycityexplorer.presentation.city.CityViewModel
 import com.example.countrycityexplorer.ui.theme.blue
 import com.example.countrycityexplorer.util.Result
 

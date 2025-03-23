@@ -13,8 +13,6 @@ data class CityResponse(
     @SerializedName("data") val cities: List<String>
 )
 
-
-
 data class City(
     val cityname: String
 )

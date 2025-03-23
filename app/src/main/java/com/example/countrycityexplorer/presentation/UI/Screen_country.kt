@@ -19,11 +19,6 @@ import com.example.countrycityexplorer.presentation.vm.CountryVM.CountryViewMode
 import com.example.countrycityexplorer.ui.theme.blue
 import androidx.compose.runtime.*
 import com.example.countrycityexplorer.util.Result
-import com.example.countrycityexplorer.data.model.Country
-
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +76,7 @@ fun CountryListScreen(navController: NavController, viewModel: CountryViewModel)
 
 
 @Composable
-fun CountryItem(country: Country, onClick: () -> Unit) {
+fun CountryItem(country: com.example.countrycityexplorer.domain.model.Country, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

@@ -26,3 +26,4 @@ data class State(
     @SerializedName("iso2") val iso2: String? = null,
     @SerializedName("iso3") val iso3: String? = null
 )
+

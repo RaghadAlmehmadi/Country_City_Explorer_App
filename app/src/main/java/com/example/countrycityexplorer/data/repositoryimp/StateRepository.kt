@@ -2,14 +2,13 @@ package com.example.countrycityexplorer.data.repositoryimp
 
 import android.util.Log
 import com.example.countrycityexplorer.data.apiservice.ApiService
-import com.example.countrycityexplorer.data.model.State
 import com.example.countrycityexplorer.data.model.StateRequest
-
+import com.example.countrycityexplorer.domain.mappers.toDomainModel
 
 class StateRepository(private val apiService: ApiService) {
-    suspend fun getStates(country: String, stateCode: String): List<State> {
+    suspend fun getStates(country: String, stateCode: String): List<com.example.countrycityexplorer.domain.model.State> {
         val request = StateRequest(country, stateCode)
-        Log.d("API_REQUEST", "Sending request: $request")  // Log before making API call
+        Log.d("API_REQUEST", "Sending request: $request")
 
         val response = apiService.getStates(request)
 
@@ -18,11 +17,7 @@ class StateRepository(private val apiService: ApiService) {
             Log.d("API_RESPONSE", "Full Response: $stateResponse")
 
             return stateResponse.data?.states?.map { state ->
-                State(
-                    name = state.name ?: "Unknown State",
-                    iso2 = state.iso2 ?: "N/A",
-                    iso3 = state.iso3 ?: "N/A"
-                )
+                state.toDomainModel()
             } ?: emptyList()
         } else {
             val errorMsg = response.errorBody()?.string() ?: "Unknown error"
@@ -30,4 +25,5 @@ class StateRepository(private val apiService: ApiService) {
             throw Exception("Failed to fetch states: $errorMsg")
         }
     }
+
 }

@@ -5,6 +5,7 @@ import com.example.countrycityexplorer.data.apiservice.ApiService
 import com.example.countrycityexplorer.data.model.City
 import com.example.countrycityexplorer.data.model.CityRequest
 
+
 class CityRepository(private val apiService: ApiService) {
     suspend fun getCity(country: String, stateCode: String): List<City> {
         val response = apiService.getCity(CityRequest(country, stateCode))

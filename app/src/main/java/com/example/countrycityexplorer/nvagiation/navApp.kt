@@ -16,10 +16,10 @@ import com.example.countrycityexplorer.domain.usecase.GetCountriesUseCase
 import com.example.countrycityexplorer.domain.usecase.GetStatesUseCase
 import com.example.countrycityexplorer.domain.usecase.GetCitiesUseCase
 import com.example.countrycityexplorer.presentation.UI.CountryListScreen
-import com.example.countrycityexplorer.presentation.vm.CityVM.CityViewModel
+import com.example.countrycityexplorer.presentation.city.CityViewModel
+import com.example.countrycityexplorer.presentation.state.StateViewModel
 import com.example.countrycityexplorer.presentation.vm.CityVM.CityViewModelFactory
 import com.example.countrycityexplorer.presentation.vm.CountryVM.CountryViewModelFactory
-import com.example.countrycityexplorer.presentation.vm.StateVM.StateViewModel
 import com.example.countrycityexplorer.presentation.vm.StateVM.StateViewModelFactory
 import com.example.countrycityexplorer.ui.theme.CountryCityExplorerTheme
 import java.net.URLDecoder

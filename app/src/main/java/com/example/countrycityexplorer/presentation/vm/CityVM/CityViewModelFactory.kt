@@ -3,6 +3,7 @@ package com.example.countrycityexplorer.presentation.vm.CityVM
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.countrycityexplorer.domain.usecase.GetCitiesUseCase
+import com.example.countrycityexplorer.presentation.city.CityViewModel
 
 
 class CityViewModelFactory(

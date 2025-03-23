@@ -1,14 +1,13 @@
-package com.example.countrycityexplorer.presentation.vm.CityVM
+package com.example.countrycityexplorer.presentation.city
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.countrycityexplorer.data.model.City
-import com.example.countrycityexplorer.domain.usecase.GetCitiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.example.countrycityexplorer.domain.usecase.GetCitiesUseCase
+import com.example.countrycityexplorer.domain.model.City
 import com.example.countrycityexplorer.util.Result
-
 
 class CityViewModel(
     private val getCitiesUseCase: GetCitiesUseCase
@@ -19,12 +18,9 @@ class CityViewModel(
 
     fun fetchCities(country: String, stateName: String) {
         viewModelScope.launch {
-            getCitiesUseCase.execute(country, stateName).collect { result -> // ✅ Pass country
+            getCitiesUseCase.execute(country, stateName).collect { result ->
                 _cityList.value = result
             }
         }
     }
-
 }
-
-

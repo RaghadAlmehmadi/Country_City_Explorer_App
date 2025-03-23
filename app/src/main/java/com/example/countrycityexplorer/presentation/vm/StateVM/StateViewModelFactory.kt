@@ -3,6 +3,7 @@ package com.example.countrycityexplorer.presentation.vm.StateVM
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.countrycityexplorer.domain.usecase.GetStatesUseCase
+import com.example.countrycityexplorer.presentation.state.StateViewModel
 
 
 class StateViewModelFactory(private val getStatesUseCase: GetStatesUseCase) : ViewModelProvider.Factory {
