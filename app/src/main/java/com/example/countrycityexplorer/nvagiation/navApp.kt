@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.example.countrycityexplorer.presentation.UI.CityListScreen
 import com.example.countrycityexplorer.presentation.UI.StateListScreen
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.countrycityexplorer.presentation.vm.CountryVM.CountryViewModel
 import com.example.countrycityexplorer.domain.usecase.GetCountriesUseCase
@@ -39,7 +40,8 @@ fun Navapp(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Color Scheme") },
+                    title = { Text(text = "Color Scheme",
+                        fontWeight = FontWeight.Light) },
                     actions = {
                         Switch(
                             checked = isDarkTheme,
@@ -65,12 +67,12 @@ fun Navapp(
 
                 composable("state_list/{countryIso}",) { backStackEntry ->
                     val countryIso = backStackEntry.arguments?.getString("countryIso") ?: ""
-                   val stateCode = backStackEntry.arguments?.getString("stateCode") ?: ""
+                    val stateCode = backStackEntry.arguments?.getString("stateCode") ?: ""
                     val stateViewModel: StateViewModel = viewModel(
-                            factory = StateViewModelFactory(getStatesUseCase)
-                        )
+                        factory = StateViewModelFactory(getStatesUseCase)
+                    )
 
-                        StateListScreen(navController, stateViewModel, countryIso,stateCode)
+                    StateListScreen(navController, stateViewModel, countryIso,stateCode)
 
                 }
 

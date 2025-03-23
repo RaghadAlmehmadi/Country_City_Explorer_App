@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountryListScreen(navController: NavController, viewModel: CountryViewModel) {
-    val countryState by viewModel.countryState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.fetchCountries()
@@ -40,7 +39,7 @@ fun CountryListScreen(navController: NavController, viewModel: CountryViewModel)
             TopAppBar(
                 modifier = Modifier.height(48.dp), // Slightly smaller height
                 windowInsets = WindowInsets(0, 0, 0, 0),
-                title = { Text("Countries") },
+                title = { Text("Countries", color = Color.White) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = blue)
             )
         }
@@ -62,7 +61,7 @@ fun CountryListScreen(navController: NavController, viewModel: CountryViewModel)
                     LazyColumn {
                         items(countryState.data) { country ->
                             CountryItem(country) {
-                                Log.d("NAVIGATION", "Navigating with country: ${country.country}") // ✅ Log name
+                                Log.d("NAVIGATION", "Navigating with country: ${country.country}")
                                 navController.navigate("state_list/${country.country}")
                             }
                         }

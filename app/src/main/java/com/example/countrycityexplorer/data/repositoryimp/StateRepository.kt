@@ -30,8 +30,4 @@ class StateRepository(private val apiService: ApiService) {
             throw Exception("Failed to fetch states: $errorMsg")
         }
     }
-
-
-
-
 }

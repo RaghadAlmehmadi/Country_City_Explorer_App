@@ -24,7 +24,7 @@ fun CityListScreen(navController: NavController, viewModel: CityViewModel, state
     val cityState by viewModel.cityList.collectAsState()
 
     LaunchedEffect(stateName) {
-        viewModel.fetchCities(countryIso, stateName) // ✅ Pass countryIso
+        viewModel.fetchCities(countryIso, stateName)
     }
 
 

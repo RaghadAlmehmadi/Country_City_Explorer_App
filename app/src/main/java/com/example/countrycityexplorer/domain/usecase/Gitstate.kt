@@ -10,5 +10,3 @@ class GetStatesUseCase(private val repository: StateRepository) {
         return repository.getStates(country,stateCode)
     }
 }
-
-
