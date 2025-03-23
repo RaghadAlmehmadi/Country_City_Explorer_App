@@ -2,18 +2,19 @@ package com.example.countrycityexplorer.data.repositoryimp
 
 import android.util.Log
 import com.example.countrycityexplorer.data.apiservice.ApiService
-import com.example.countrycityexplorer.data.apiservice.RetrofitInstance.apiService
-import com.example.countrycityexplorer.data.model.CountryRequest
 import com.example.countrycityexplorer.data.model.State
+import com.example.countrycityexplorer.data.model.StateRequest
+
 
 class StateRepository(private val apiService: ApiService) {
+    suspend fun getStates(country: String, stateCode: String): List<State> {
+        val request = StateRequest(country, stateCode)
+        Log.d("API_REQUEST", "Sending request: $request")  // Log before making API call
 
-    suspend fun getStates(country: String): List<State> {
-        val response = apiService.getStates(CountryRequest(country))
+        val response = apiService.getStates(request)
 
         if (response.isSuccessful && response.body() != null) {
             val stateResponse = response.body()!!
-
             Log.d("API_RESPONSE", "Full Response: $stateResponse")
 
             return stateResponse.data?.states?.map { state ->
@@ -29,6 +30,7 @@ class StateRepository(private val apiService: ApiService) {
             throw Exception("Failed to fetch states: $errorMsg")
         }
     }
+
 
 
 

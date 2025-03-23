@@ -15,7 +15,7 @@ interface ApiService {
     suspend fun getCountries(): Response<CountryResponse>
 
     @POST("countries/states")
-    suspend fun getStates(@Body request: CountryRequest): Response<StateResponse>
+    suspend fun getStates(@Body request: StateRequest): Response<StateResponse>
 
     @POST("countries/state/cities")
     suspend fun getCity(@Body request: CityRequest): Response<CityResponse>

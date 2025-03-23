@@ -1,6 +1,10 @@
 package com.example.countrycityexplorer.data.model
 
+import com.google.gson.annotations.SerializedName
 
+data class CountryRequest(
+    @SerializedName("country") val country: String
+)
 data class CountryResponse(
     val error: Boolean,
     val msg: String,

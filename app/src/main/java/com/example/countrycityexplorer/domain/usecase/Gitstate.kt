@@ -6,8 +6,8 @@ import com.example.countrycityexplorer.data.repositoryimp.StateRepository
 
 
 class GetStatesUseCase(private val repository: StateRepository) {
-    suspend fun execute(country: String): List<State> {
-        return repository.getStates(country)
+    suspend fun execute(country: String, stateCode: String): List<State> {
+        return repository.getStates(country,stateCode)
     }
 }
 

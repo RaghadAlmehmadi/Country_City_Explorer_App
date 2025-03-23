@@ -26,13 +26,14 @@ import java.nio.charset.StandardCharsets
 fun StateListScreen(
     navController: NavController,
     stateViewModel: StateViewModel,
-    countryIso: String // ✅ Passed as a parameter from NavHost
+    countryIso: String,
+    stateCode: String
 ) {
     val stateState by stateViewModel.stateList.collectAsState()
 
     // Fetch states when the screen loads
-    LaunchedEffect(countryIso) {
-        stateViewModel.fetchStates(countryIso)
+    LaunchedEffect(countryIso,stateCode) {
+        stateViewModel.fetchStates(countryIso,stateCode)
     }
 
     Scaffold(
@@ -93,7 +94,7 @@ fun StateItem(state: State, onClick: () -> Unit) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "${state.name} (${state.iso2})",
+                text = "${state.name} (${state.iso3})",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White
             )

@@ -65,11 +65,12 @@ fun Navapp(
 
                 composable("state_list/{countryIso}",) { backStackEntry ->
                     val countryIso = backStackEntry.arguments?.getString("countryIso") ?: ""
+                   val stateCode = backStackEntry.arguments?.getString("stateCode") ?: ""
                     val stateViewModel: StateViewModel = viewModel(
                             factory = StateViewModelFactory(getStatesUseCase)
                         )
 
-                        StateListScreen(navController, stateViewModel, countryIso)
+                        StateListScreen(navController, stateViewModel, countryIso,stateCode)
 
                 }
 

@@ -14,10 +14,10 @@ class StateViewModel(private val getStatesUseCase: GetStatesUseCase) : ViewModel
     private val _stateList = MutableStateFlow<Result<List<State>>>(Result.Loading)
     val stateList: StateFlow<Result<List<State>>> = _stateList
 
-    fun fetchStates(countryIso: String) {
+    fun fetchStates(countryIso: String, stateCode: String) {
         viewModelScope.launch {
             try {
-                val states = getStatesUseCase.execute(countryIso)
+                val states = getStatesUseCase.execute(countryIso,stateCode)
                 _stateList.value = Result.Success(states)
             } catch (e: Exception) {
                 _stateList.value = Result.Error(e.message ?: "An error occurred")
